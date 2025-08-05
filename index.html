@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedLoc - Your Trusted Online Pharmacy</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00B517;
+            --primary-light: #E6F7EE;
+            --primary-dark: #008A11;
+            --secondary: #FF9017;
+            --dark: #1C1C1C;
+            --gray-dark: #505050;
+            --gray: #8B96A5;
+            --gray-light: #EFF2F4;
+            --light: #F7FAFC;
+            --white: #FFFFFF;
+        }
+        
+        body {
+            font-family: 'Public Sans', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+        
+        .bg-primary {
+            background-color: var(--primary) !important;
+        }
+        
+        .bg-primary-light {
+            background-color: var(--primary-light) !important;
+        }
+        
+        .text-primary {
+            color: var(--primary) !important;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
+        }
+        
+        /* Header Styles */
+        .top-header {
+            background-color: var(--dark);
+            color: var(--white);
+            font-size: 0.875rem;
+            padding: 10px 0;
+        }
+        
+        .main-header {
+            background-color: var(--white);
+            padding: 15px 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+        
+        .search-box {
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .search-box input {
+            border: none;
+            padding: 10px 15px;
+        }
+        
+        .search-box button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 20px;
+        }
+        
+        .category-dropdown .dropdown-toggle {
+            background-color: var(--primary);
+            color: white;
+            border-radius: 6px;
+            padding: 10px 20px;
+        }
+        
+        .nav-icons a {
+            color: var(--dark);
+            margin-left: 20px;
+            position: relative;
+        }
+        
+        .nav-icons .badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            font-size: 0.6rem;
+        }
+        
+        /* Hero Slider */
+        .hero-slider {
+            position: relative;
+            margin: 20px 0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .hero-slide {
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+        }
+        
+        .slide-content {
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            padding: 30px;
+            max-width: 500px;
+            border-radius: 6px;
+        }
+        
+        .slide-content h2 {
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .slide-content p {
+            margin-bottom: 20px;
+        }
+        
+        .hero-slider .carousel-control-prev,
+        .hero-slider .carousel-control-next {
+            width: 5%;
+        }
+        
+        /* Category Cards */
+        .category-card {
+            background-color: var(--white);
+            border-radius: 6px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid var(--gray-light);
+        }
+        
+        .category-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transform: translateY(-5px);
+        }
+        
+        .category-card img {
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+        
+        /* Product Cards */
+        .product-card {
+            background-color: var(--white);
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--gray-light);
+            transition: all 0.3s;
+        }
+        
+        .product-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .product-card .badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        
+        .product-card-img {
+            height: 160px;
+            object-fit: contain;
+            padding: 20px;
+            background-color: var(--light);
+        }
+        
+        .product-card-body {
+            padding: 15px;
+        }
+        
+        .product-title {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .product-price {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .product-old-price {
+            text-decoration: line-through;
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+        
+        .product-rating {
+            color: var(--secondary);
+            font-size: 0.875rem;
+        }
+        
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 8px;
+            font-size: 0.875rem;
+        }
+        
+        /* Promo Banner */
+        .promo-banner {
+            background-color: var(--primary-light);
+            border-radius: 6px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        /* Prescription Banner */
+        .prescription-banner {
+            background-color: var(--secondary);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        
+        /* Payment Partners */
+        .payment-partners {
+            background-color: var(--white);
+            padding: 30px 0;
+            border-top: 1px solid var(--gray-light);
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .partner-logo {
+            height: 30px;
+            object-fit: contain;
+            margin: 0 15px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        
+        .partner-logo:hover {
+            opacity: 1;
+        }
+        
+        .app-badge {
+            height: 40px;
+            margin: 0 10px;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+        
+        .footer-links h5 {
+            font-size: 1.125rem;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--white);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            margin-top: 30px;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero-slide {
+                height: 300px;
+            }
+            
+            .slide-content {
+                max-width: 100%;
+                margin: 0 20px;
+            }
+            
+            .nav-icons a {
+                margin-left: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Header -->
+    <div class="top-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center">
+                        <div class="me-3"><i class="fas fa-phone-alt me-2"></i> (800) 555-1234</div>
+                        <div><i class="fas fa-envelope me-2"></i> support@medloc.com</div>
+                    </div>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="d-flex justify-content-md-end">
+                        <div class="me-3"><a href="#" class="text-white text-decoration-none">Track Order</a></div>
+                        <div><a href="#" class="text-white text-decoration-none">Find a Pharmacy</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Header -->
+    <header class="main-header sticky-top">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-2 col-6">
+                    <a class="navbar-brand fw-bold fs-3 text-primary" href="#">
+                        <i class="fas fa-map-marker-alt me-2"></i>MedLoc
+                    </a>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block">
+                    <div class="search-box d-flex">
+                        <input type="text" class="form-control border-0 shadow-none" placeholder="Search medicines, health products...">
+                        <button type="button" class="btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-6 text-end">
+                    <div class="nav-icons d-flex justify-content-end align-items-center">
+                        <a href="#">
+                            <i class="fas fa-user"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fas fa-heart"></i>
+                            <span class="badge bg-primary rounded-circle">3</span>
+                        </a>
+                        <a href="#">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="badge bg-primary rounded-circle">5</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-2 border-top border-bottom">
+        <div class="container">
+            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-bars me-2"></i>All Categories
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-prescription-bottle-alt me-2"></i> Prescription Drugs</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-pills me-2"></i> Over-the-Counter</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-capsules me-2"></i> Vitamins & Supplements</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-soap me-2"></i> Personal Care</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-band-aid me-2"></i> Medical Supplies</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Prescriptions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Doctors</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Health Tips</a>
+                    </li>
+                </ul>
+                <div class="d-lg-none mt-3">
+                    <div class="search-box d-flex">
+                        <input type="text" class="form-control border-0 shadow-none" placeholder="Search medicines...">
+                        <button type="button" class="btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Slider -->
+    <div id="heroCarousel" class="carousel slide hero-slider" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+                    <div class="container">
+                        <div class="slide-content">
+                            <h2>Your Trusted Online Pharmacy</h2>
+                            <p>Get genuine medications delivered to your doorstep with free shipping on orders over $50</p>
+                            <div class="d-flex gap-3">
+                                <a href="#" class="btn btn-primary px-4 py-2">Shop Now</a>
+                                <a href="#" class="btn btn-outline-light px-4 py-2">Upload Prescription</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+                    <div class="container">
+                        <div class="slide-content">
+                            <h2>Free Delivery on Prescriptions</h2>
+                            <p>Get free shipping on all prescription refills when you use our auto-refill service</p>
+                            <div class="d-flex gap-3">
+                                <a href="#" class="btn btn-primary px-4 py-2">Sign Up Now</a>
+                                <a href="#" class="btn btn-outline-light px-4 py-2">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')">
+                    <div class="container">
+                        <div class="slide-content">
+                            <h2>Doctor Consultations Available</h2>
+                            <p>Talk to licensed physicians online and get prescriptions when appropriate</p>
+                            <div class="d-flex gap-3">
+                                <a href="#" class="btn btn-primary px-4 py-2">Consult Now</a>
+                                <a href="#" class="btn btn-outline-light px-4 py-2">View Doctors</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    
+    <!-- Trust Badges -->
+    <section class="container my-5">
+        <div class="row g-4">
+            <div class="col-md-3 col-6">
+                <div class="trust-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <h5>Verified Medications</h5>
+                    <p class="small">100% genuine products</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="trust-badge">
+                    <i class="fas fa-truck"></i>
+                    <h5>Free Delivery</h5>
+                    <p class="small">On orders over $50</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="trust-badge">
+                    <i class="fas fa-user-md"></i>
+                    <h5>Doctor Consult</h5>
+                    <p class="small">Online consultations</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="trust-badge">
+                    <i class="fas fa-lock"></i>
+                    <h5>Secure Payments</h5>
+                    <p class="small">100% secure checkout</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Prescription Banner -->
+    <section class="container">
+        <div class="prescription-banner">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h3 class="mb-3"><i class="fas fa-prescription-bottle-alt me-2"></i> Need a prescription refill?</h3>
+                    <p class="mb-0">Upload your prescription and we'll have your medications ready for pickup or delivery</p>
+                </div>
+                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                    <a href="#" class="btn btn-light btn-lg">Upload Prescription</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Featured Categories -->
+    <section class="container my-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0">Shop by Category</h2>
+            <a href="#" class="btn btn-outline-primary">View All</a>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-3 col-6">
+                <div class="category-card card">
+                    <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Prescription Drugs">
+                    <div class="card-body">
+                        <h5 class="card-title">Prescription Drugs</h5>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-6">
+                <div class="category-card card">
+                    <img src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="OTC Medications">
+                    <div class="card-body">
+                        <h5 class="card-title">OTC Medications</h5>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-6">
+                <div class="category-card card">
+                    <img src="https://images.unsplash.com/photo-1593062096033-9a26b09da705?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Vitamins">
+                    <div class="card-body">
+                        <h5 class="card-title">Vitamins</h5>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-6">
+                <div class="category-card card">
+                    <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Personal Care">
+                    <div class="card-body">
+                        <h5 class="card-title">Personal Care</h5>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Promotional Banner -->
+    <section class="promo-banner">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h2 class="mb-3"><i class="fas fa-pills me-2"></i> Free Delivery on Prescription Refills</h2>
+                    <p class="mb-0">Get free shipping on all prescription refills when you use our auto-refill service.</p>
+                </div>
+                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                    <a href="#" class="btn btn-primary btn-lg">Sign Up for Auto-Refill</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Featured Products -->
+    <section class="product-slide">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="mb-0">Featured Products</h2>
+                <a href="#" class="btn btn-outline-primary">View All</a>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-3 col-6">
+                    <div class="category-card card">
+                        <span class="badge bg-danger position-absolute top-0 end-0 m-2">Sale</span>
+                        <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Product 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Pain Relief Tablets</h5>
+                            <p class="text-muted small">50mg, 30 tablets</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="mb-0 text-primary">$12.99</h6>
+                                <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-cart-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-6">
+                    <div class="category-card card">
+                        <img src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Product 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Allergy Relief</h5>
+                            <p class="text-muted small">10mg, 60 tablets</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="mb-0 text-primary">$18.99</h6>
+                                <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-cart-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-6">
+                    <div class="category-card card">
+                        <span class="badge bg-success position-absolute top-0 end-0 m-2">New</span>
+                        <img src="https://images.unsplash.com/photo-1593062096033-9a26b09da705?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Product 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Vitamin D3</h5>
+                            <p class="text-muted small">5000IU, 120 softgels</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="mb-0 text-primary">$24.99</h6>
+                                <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-cart-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 col-6">
+                    <div class="category-card card">
+                        <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Product 4">
+                        <div class="card-body">
+                            <h5 class="card-title">Hand Sanitizer</h5>
+                            <p class="text-muted small">8oz bottle</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="mb-0 text-primary">$5.99</h6>
+                                <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-cart-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Health Tips -->
+    <section class="container my-5">
+        <h2 class="text-center mb-5">Health Tips & Articles</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Health Tip 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Managing Seasonal Allergies</h5>
+                        <p class="card-text">Learn how to reduce symptoms and find the right medications for seasonal allergies.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Health Tip 2">
+                    <div class="card-body">
+                        <h5 class="card-title">The Importance of Vitamin D</h5>
+                        <p class="card-text">Discover why Vitamin D is essential for your health and how to get enough of it.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Health Tip 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Proper Medication Storage</h5>
+                        <p class="card-text">Find out how to store your medications properly to maintain their effectiveness.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Payment Partners Section -->
+    <section class="payment-partners">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h6 class="mb-0">Available on the</h6>
+                </div>
+                <div class="col-md-4 text-center mb-3 mb-md-0">
+                    <div class="d-flex justify-content-center">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/2560px-Visa_Inc._logo.svg.png" class="partner-logo" alt="Visa">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1280px-Mastercard-logo.svg.png" class="partner-logo" alt="Mastercard">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/1200px-American_Express_logo_%282018%29.svg.png" class="partner-logo" alt="American Express">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/2560px-PayPal.svg.png" class="partner-logo" alt="PayPal">
+                    </div>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <div class="d-flex justify-content-center justify-content-md-end">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Download_on_the_App_Store_Badge.svg/2560px-Download_on_the_App_Store_Badge.svg.png" class="app-badge" alt="App Store">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/2560px-Google_Play_Store_badge_EN.svg.png" class="app-badge" alt="Google Play">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-links">
+                        <h5><i class="fas fa-map-marker-alt me-2"></i> MedLoc</h5>
+                        <p>Your trusted online pharmacy providing genuine medications, health products, and professional advice.</p>
+                        <div class="mt-3">
+                            <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-links">
+                        <h5>Categories</h5>
+                        <ul>
+                            <li><a href="#">Prescription Drugs</a></li>
+                            <li><a href="#">Over-the-Counter</a></li>
+                            <li><a href="#">Vitamins & Supplements</a></li>
+                            <li><a href="#">Personal Care</a></li>
+                            <li><a href="#">Medical Supplies</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-links">
+                        <h5>Customer Service</h5>
+                        <ul>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">FAQs</a></li>
+                            <li><a href="#">Shipping Policy</a></li>
+                            <li><a href="#">Returns & Refunds</a></li>
+                            <li><a href="#">Track Order</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="footer-links">
+                        <h5>Get In Touch</h5>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt me-2"></i> 123 Health St, Medical City</li>
+                            <li><i class="fas fa-phone-alt me-2"></i> (800) 555-1234</li>
+                            <li><i class="fas fa-envelope me-2"></i> support@medloc.com</li>
+                        </ul>
+                        <h5 class="mt-4">Newsletter</h5>
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" placeholder="Your email">
+                            <button class="btn btn-primary" type="button">Subscribe</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start">
+                        <p class="mb-0">&copy; 2023 MedLoc. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <a href="#" class="me-3">Privacy Policy</a>
+                        <a href="#" class="me-3">Terms of Service</a>
+                        <a href="#">HIPAA Compliance</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
